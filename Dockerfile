@@ -1,5 +1,5 @@
 # Start your image with a node base image
-FROM node:18-alpine
+FROM node:22-alpine
 
 # The /app directory should act as the main application directory
 WORKDIR /app
@@ -13,7 +13,7 @@ COPY ./public ./public
 
 # Install node packages, install serve, build the app, and remove dependencies at the end
 RUN npm install \
-    && npm install -g serve \
+    && npm install -g serve@latest \
     && npm run build \
     && rm -fr node_modules
 
