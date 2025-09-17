@@ -12,7 +12,9 @@ COPY ./src ./src
 COPY ./public ./public
 
 # Install node packages, install serve, build the app, and remove dependencies at the end
-RUN npm install \
+# check the CA expiration date if you have issues with npm install
+RUN npm config set registry https://registry.npmmirror.com/\
+    && npm install \
     && npm install -g serve@latest \
     && npm run build \
     && rm -fr node_modules
