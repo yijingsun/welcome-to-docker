@@ -15,4 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag welcome-to-docker:$(date +%s)
+      run: |
+        docker version
+        # 登录阿里云镜像仓库
+        docker login --username=${{ secrets.ACR_USERNAME }} --password=${{ secrets.ACR_PASSWORD }} crpi-u1ofi9ezrkqg9rdw.cn-shenzhen.personal.cr.aliyuncs.com
+        # 使用Dockerfile构建镜像
+        docker build . --file Dockerfile --tag crpi-u1ofi9ezrkqg9rdw.cn-shenzhen.personal.cr.aliyuncs.com/mirror_phalange/welcome-to-docker:latest
+        # 推送镜像到镜像仓库
+        docker push crpi-u1ofi9ezrkqg9rdw.cn-shenzhen.personal.cr.aliyuncs.com/mirror_phalange/welcome-to-docker:latest
